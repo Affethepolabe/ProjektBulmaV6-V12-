@@ -1,0 +1,336 @@
+
+<div class="navbar has-shadow">
+    <div class="navbar-brand"> 
+
+        <div class="navbar-item"><a href="index.html"><img src="Assets/xbox-controller-clipart-lg.png"></img></a></div>
+        <div class="navbar-item">
+            <h1>SIGITYGAMES</h1>
+        </div>
+
+
+        <a class="navbar-burger" id="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
+    </div>
+
+
+
+    <div class="navbar-menu" id="navbar-menu">
+        <div class="navbar-start">
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link"><strong>Games</strong></a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="Minesweeper.html"><strong>Minesweeper</strong></a>
+                    <a class="navbar-item" href="TicTacToe.html"><strong>Tic Tac Toe</strong></a>
+                    <a class="navbar-item" href="GemClicker.html"><strong>Gem Clicker</strong></a>
+                    <a class="navbar-item" href="Snake.html"><strong>Snake</strong></a>
+                    <hr class="navbar-divider">
+                    <a id="reportbutton" class="navbar-item">Report Issue</a>
+                </div>
+            </div>
+            <a class="navbar-item"><strong>Documentation</strong></a>
+            <a class="navbar-item"><strong>About Us</strong></a>
+
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div id="switchparent">
+                    <div id="switch">
+                        <img src="Assets/lightmode2.png" alt="">
+                        <img src="Assets/darkmode.png" alt="">
+                    </div>
+                    <div id="slider">
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-item">
+                <a class="button is-info">Contact Us</a>
+            </div>
+            <div class="navbar-item">
+                <a class="button">Join Our Discord</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modal">
+    <div class="modal-background" id="modal-background"></div>
+    <div class="modal-content py-6 px-6 has-background" id="modal-content">
+        <h2 class="text has-text-centered has-text-white">Report An Issue</h2>
+        <form>
+            <div class="field">
+                <label class="label required">
+                    Name
+                </label>
+                <div class="control has-icons-left">
+                    <input type="text" class="input" placeholder="Sigity Sigma" required>
+
+                    <span class="icon is-small is-left">
+                        <i class="material-icons">person</i>
+                    </span> 
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label required">
+                    Email
+                </label>
+                <div class="control has-icons-left">
+                    <input type="text" class="input" placeholder="sigity.sigma@rizz.skibidi" required>
+
+                    <span class="icon is-small is-left">
+                        <i class="material-icons">email</i>
+                    </span> 
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label required">
+                    What do you have a problem with?
+                </label>
+                <div class="control">
+                    <div class="select">
+                        <select>
+                            <option> Select an Option</option>
+                            <option>Snake</option>
+                            <option>Minesweeper</option>
+                            <option>Gem Clicker</option>
+                            <option>Tic Tac Toe</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label required">
+                    Report Message
+                </label>
+                <div class="control">
+                    <textarea class="textarea"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<style>
+    .navbar{
+        height: 100px;
+    }
+    .navbar-brand div img{
+        scale: 1.5;
+        margin-left: 10px;
+    }
+    .modal-content{
+        border-radius: 20px;
+    }
+    .label.required::after{
+        content: " *";
+        color: red;
+    }
+    h2{
+        font-size: 40px;
+    }
+    #switch{
+        user-select: none;
+        width: 60px;
+        height: 30x;
+        background-color: #212121;
+        border-radius: 20px;
+        border: 1px white solid;
+
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+      
+    }
+
+    #slider{
+       background: linear-gradient(125deg, rgba(0,31,82,1) 0%, rgba(0,119,255,1) 100%);
+       margin-top: 4px;
+       margin-left: 4px;
+       height: 22px;
+       width: 22px;
+       border-radius: 40px;
+       z-index: 999;
+
+       position: absolute;
+    }
+
+    #switch img{
+        scale: 0.7;
+    }
+
+    #switchparent{
+       position: relative;
+       margin-right: 70px;
+       margin-bottom: 30px;
+    }
+
+    
+</style>
+
+
+
+<style is:global>
+    .sliderlight{
+        animation: sliderlight 0.25s;
+    }
+    .sliderdark{
+        animation: sliderdark 0.25s;
+    }
+    @keyframes sliderlight{
+        0% {
+            transform:translateX(0px);
+        }
+        10% {
+            transform: translateX(3px);
+        }
+        20% {
+            transform: translateX(6px);
+        }
+        30% {
+            transform: translateX(9px);
+        }
+        40% {
+            transform: translateX(12px);
+        }
+        50% {
+            transform: translateX(15px);
+        }
+        60% {
+            transform: translateX(18px);
+        }
+        70% {
+            transform: translateX(21px);
+        }
+        80% {
+            transform: translateX(24px);
+        }
+        90% {
+            transform: translateX(27px);
+        }
+        100% {
+            transform: translateX(30px);
+        }
+
+
+    }
+    @keyframes sliderdark{
+        0% {
+            transform:translateX(-0px);
+        }
+        10% {
+            transform: translateX(-3px);
+        }
+        20% {
+            transform: translateX(-6px);
+        }
+        30% {
+            transform: translateX(-9px);
+        }
+        40% {
+            transform: translateX(-12px);
+        }
+        50% {
+            transform: translateX(-15px);
+        }
+        60% {
+            transform: translateX(-18px);
+        }
+        70% {
+            transform: translateX(-21px);
+        }
+        80% {
+            transform: translateX(-24px);
+        }
+        90% {
+            transform: translateX(-27px);
+        }
+        100% {
+            transform: translateX(-30px);
+        }
+    }
+</style>
+
+
+<script>
+    const burger = document.querySelector("#burger")
+    const navbarmenu = document.querySelector("#navbar-menu")
+    const reportbutton = document.querySelector("#reportbutton")
+    const modal = document.querySelector("#modal")
+    const modalbackground = document.querySelector("#modal-background")
+    const modalcontent = document.querySelector("#modal-content")
+    const slider = document.getElementById("slider") as HTMLElement
+    const htmlDataset = document.querySelector("html")!.dataset
+   
+    
+    let mode = "dark"
+
+    burger?.addEventListener("click", () => {
+        navbarmenu?.classList.toggle("is-active")
+    })
+
+    reportbutton?.addEventListener("click", () => {
+        modal?.classList.add("is-active")
+    })
+    
+    modalbackground?.addEventListener("click", () =>{
+        modal?.classList.remove("is-active")
+    })
+
+    slider?.addEventListener("click", slideranimation)
+
+    function slideranimation() {
+        const slider = document.getElementById("slider") as HTMLElement
+        const bodycolor = document.querySelector("body") as HTMLElement
+
+    if(mode == "dark"){
+        slider?.classList.add("sliderlight")
+        
+        setTimeout(() => {
+            slider.style.marginLeft = "34px"
+        }, 250);
+
+        setTimeout(() => {
+            slider?.classList.remove("sliderlight")
+        }, 250);
+
+       
+        
+        htmlDataset.theme = "light"
+        bodycolor!.style.backgroundColor = "white"
+        mode = "light"
+    } else{
+        slider?.classList.add("sliderdark")
+        
+        setTimeout(() => {
+            slider.style.marginLeft = "4px"
+        }, 250);
+
+        setTimeout(() => {
+            slider?.classList.remove("sliderdark")
+        }, 250);
+
+        htmlDataset.theme = "dark"
+         bodycolor!.style.backgroundColor = "#1b1b1b"
+        mode = "dark"
+    }
+        
+    }
+
+    
+
+    
+
+
+
+
+</script>

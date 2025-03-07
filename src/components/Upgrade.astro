@@ -1,0 +1,170 @@
+---
+import type { string } from 'astro:schema';
+
+interface Props {
+    upgradeName: string;
+    pictureName: string;
+    levelId: string;
+    costId: string;
+    nextLevelId: string;
+    description: string;
+    upgradeNum: string;
+    startCost: string;
+    gpcgps: string;
+    prevUpgradeName: string;
+    unlocklvl: string;
+    ugradelockid: string;
+}
+const {upgradeName, pictureName, levelId, costId, nextLevelId, upgradeNum, startCost, description, gpcgps, prevUpgradeName, unlocklvl, ugradelockid} = Astro.props;
+---
+<div id="upgradeparent">
+    <div id="upgradechild">
+        <div class="upgrade" id={upgradeNum}>
+                <div class="box">
+                    <div id="icon">
+                        <img src={"Assets/"+pictureName} alt="cursor" draggable="false">
+                    </div>
+                    <div id="nameCost">
+                        <div id="name"><strong class="has-text-info">{upgradeName}</strong></div>
+                        <div id="cost">
+                            <strong>Cost: </strong><strong id={costId} class="costNum">{startCost} </strong><img src="Assets/diamond.webp" alt="" draggable="false">
+                        </div>
+                    </div>
+                    <div id="level">
+                        <strong>LEVEL</strong><strong class="levelNum" id={levelId}>1</strong>
+                    </div>
+                </div>
+            
+            <div class="info">
+            {description} <strong id={nextLevelId} class="has-text-danger" >1</strong> {gpcgps}
+            </div>
+        </div>
+    </div>
+    <div class="upgradelock" id={ugradelockid}>
+        <img src="Assets/lock.webp" alt="">Unlocks at "<strong class="has-text-info"> {prevUpgradeName} </strong>" level<strong class="has-text-danger"> {unlocklvl} </strong>
+    </div>
+</div>
+
+<style>
+.upgrade{
+    display: flex;
+    flex-direction: row;
+}
+.box{
+    height: 100px;
+    width: 300px;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr;
+    grid-template-areas: 
+    "icon name level";
+    margin: 0;
+    transition: 0.3s;
+}
+
+#icon{
+    grid-area: icon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px !important;
+}
+#icon img{
+    height: 50px;
+    scale: 2;
+    display: inline-block;
+    width: 25px !important;
+    object-fit: contain;
+}
+
+#nameCost{
+    grid-area: name;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px;
+}
+
+#cost {
+    display: inline-block;
+    width: max-content;
+}
+
+#nameCost div img {
+    height: 14px;
+    width: 14px;
+}
+
+#level{
+    grid-area: level;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: aliceblue;
+}
+
+#name{
+    font-weight: 900;
+    font-size: 25px;
+
+}
+
+.costNum{
+    color: red;
+    font-family: monospace;
+    font-size: 15px;
+}
+
+.levelNum{
+    color: red;
+}
+
+.info{
+    height: 90px;
+    background-color: rgb(10, 9, 27);
+    width: 100px;
+    color: aliceblue;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0px 0px 5px;
+    scale: 0.00001;
+}
+
+.box:hover{
+    cursor: pointer;
+    opacity: 0.9;
+    scale: 1.05;
+    transition: 0.3s;
+}
+
+.box:hover + .info{
+   scale: 1;
+}
+
+
+
+
+#upgradeparent{
+    position: relative;
+    height: 100px;
+    width: 405px;
+    user-select: none;
+}
+#upgradechild{
+    position: absolute;
+}
+.upgradelock{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+    color: white;
+}
+.upgradelock img{
+    height: 40px;
+}
+</style>

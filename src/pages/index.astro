@@ -1,11 +1,60 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro"
+import Game from "../components/Game.astro"
 ---
-
 <Layout>
-	<Welcome />
+    <section class="Home">
+        <h1>Welcome to SigityGames</h1>
+
+        <section class="games">
+            <Game
+                gameName="Snake"
+                description="lorem ipsum dolor sit amet lorem ipsum dolor sit amet"
+                pictureName="snakegame.png"
+                gameLink="Snake.html"
+            />
+            <Game
+                gameName="Gem Clicker"
+                description="lorem ipsum dolor sit amet lorem ipsum dolor sit amet"
+                pictureName="diamond.webp"
+                gameLink="GemClicker.html"
+            />
+            <Game
+                gameName="Gem Clicker"
+                description="lorem ipsum dolor sit amet lorem ipsum dolor sit amet"
+                pictureName="diamond.webp"
+                gameLink="GemClicker.html"
+            />
+           
+        </section>
+    </section>
 </Layout>
+
+
+
+
+
+
+<style>
+    .Home{
+        flex-direction: row;
+    }
+    
+    h1{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        padding: 20px;
+        font-size: 50px;
+        color: aliceblue;
+    }
+
+    .games{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    }
+    
+   </style>

@@ -1,0 +1,478 @@
+---
+import Upgrade from "./Upgrade.astro"
+---
+
+
+
+<section id="container">
+    <section id="left">
+        <div id="stats">
+            <div>GPC: <strong class="has-text-info" id="gpc">1</strong></div>
+            <div>GPS: <strong class="has-text-info" id="gps">0</strong></div>
+        </div>
+
+        <div class="has-text-white" id="countertext">
+            GEMS:
+        </div>
+        <div id="counter" class="block has-text-info">0</div>
+        <div class="gem-image-container">
+            <img id="diamond" src="Assets/diamond.webp" draggable="false">
+        </div>
+    </section>
+    <section id="right">
+        <div>
+            <!-- <h2 class="is-size-3 has-text-white" style="font-weight: 900;">Upgrades</h2> -->
+        </div>
+        <Upgrade
+        upgradeName="Clicker"
+        prevUpgradeName="NaN"
+        pictureName="cursor.webp"
+        levelId="level1"
+        costId="cost1" 
+        nextLevelId="nlevel1"
+        upgradeNum="upgrade1"
+        startCost="10 "
+        description="Next Level: +"
+        gpcgps="GPC"
+        unlocklvl="10"
+        ugradelockid="curslock"
+        />  
+        <Upgrade 
+        upgradeName="Pickaxe"
+        prevUpgradeName="Clicker"
+        pictureName="pickaxe.png"
+        levelId="level2"
+        costId="cost2" 
+        nextLevelId="nlevel2"
+        upgradeNum="upgrade2"
+        startCost="100 "
+        description="Next Level: +"
+        gpcgps="GPS"
+        unlocklvl="10"
+        ugradelockid="picklock"
+        />
+        <Upgrade 
+        upgradeName="Factory"
+        prevUpgradeName="Pickaxe"
+        pictureName="factory.png"
+        levelId="level3"
+        costId="cost3" 
+        nextLevelId="nlevel3"
+        upgradeNum="upgrade3"
+        startCost="400 "
+        description="Next Level: +"
+        gpcgps="GPS"
+        unlocklvl="10"
+        ugradelockid="faclock"
+        />
+    </section>
+</section>
+
+
+<script>
+    let diamondcount = 1000000
+    let increment = 1
+    let incrementS = 0
+    let gemImgContainer = document.querySelector(".gem-image-container")
+    
+    let cost1 = Number(document.getElementById("cost1")?.innerHTML)
+    let level1 = Number(document.getElementById("level1")?.innerHTML)
+    let nlevel1 = Number(document.getElementById("nlevel1")?.innerHTML)
+
+    let cost2 = Number(document.getElementById("cost2")?.innerHTML)
+    let level2 = Number(document.getElementById("level2")?.innerHTML)
+    let nlevel2 = Number(document.getElementById("nlevel2")?.innerHTML)
+
+    let cost3 = Number(document.getElementById("cost3")?.innerHTML)
+    let level3 = Number(document.getElementById("level3")?.innerHTML)
+    let nlevel3 = Number(document.getElementById("nlevel3")?.innerHTML)
+
+    document.getElementById("curslock")!.style.display = "none";
+
+    
+    const diamondElem = document.getElementById("diamond")!
+    diamondElem.addEventListener("click", diamondincrement)
+   
+    const upgrade1Elem = document.getElementById("upgrade1")!
+    upgrade1Elem.addEventListener("click", upgrade1)
+
+    const upgrade2Elem = document.getElementById("upgrade2")!
+    upgrade2Elem.addEventListener("click", upgrade2)
+
+    const upgrade3Elem = document.getElementById("upgrade3")!
+    upgrade3Elem.addEventListener("click", upgrade3)
+
+
+    
+
+    function upgrade1(){
+        if (diamondcount-cost1 < 0) return;
+        diamondcount -= cost1;
+        increment *= 1.03
+        cost1 = Math.floor(cost1*1.18)
+        level1 += 1
+        updateElements()
+    } 
+    function upgrade2(){
+        if (diamondcount-cost2 < 0) return;
+        diamondcount -= cost2;
+        cost2 = Math.floor(cost2*1.18)
+        if (level2 > 1){
+            incrementS *= 1.03
+        }
+        else{
+            incrementS += 4
+        }
+        level2 += 1
+        updateElements()
+    }
+    function upgrade3(){
+        if (diamondcount-cost3 < 0) return;
+        diamondcount -= cost3;
+        cost3 = Math.floor(cost3*1.18)
+        if (level3 > 1){
+            incrementS *= 1.1
+        }
+        else{
+            incrementS += 20
+        }
+        level3 += 1
+        updateElements()
+    }
+    
+
+
+    function updateElements(){
+        
+        let diamondcountstring = simplifyNumber2(diamondcount)
+        let level1string = simplifyNumberR(level1)
+        let cost1string = simplifyNumber0(cost1)
+        let nlevel1string = simplifyNumber2(nlevel1)
+        let level2string = simplifyNumberR(level2)
+        let cost2string = simplifyNumber0(cost2)
+        let nlevel2string = simplifyNumber2(nlevel2)
+        let level3string = simplifyNumberR(level3)
+        let cost3string = simplifyNumber0(cost3)
+        let nlevel3string = simplifyNumber2(nlevel3)
+
+        nlevel1 = increment * 1.03
+        if (level2 > 1){
+            nlevel2 = incrementS * 1.03
+        }
+        else{
+            nlevel2 = incrementS + 4
+        }
+        if (level3 > 1){
+            nlevel3 = incrementS * 1.1
+        }
+        else{
+            nlevel3 = incrementS + 20
+        }
+
+        document.getElementById("counter")!.innerHTML = diamondcountstring!
+
+        document.getElementById("level1")!.innerHTML = level1string!
+        document.getElementById("cost1")!.innerHTML = cost1string!
+        document.getElementById("nlevel1")!.innerHTML = nlevel1string!
+         
+        document.getElementById("level2")!.innerHTML = level2string!
+        document.getElementById("cost2")!.innerHTML = cost2string!
+        document.getElementById("nlevel2")!.innerHTML = nlevel2string!
+
+        document.getElementById("level3")!.innerHTML = level3string!
+        document.getElementById("cost3")!.innerHTML = cost3string!
+        document.getElementById("nlevel3")!.innerHTML = nlevel3string!
+
+        document.getElementById("gpc")!.innerHTML = increment.toFixed(2)
+        document.getElementById("gps")!.innerHTML = incrementS.toFixed(2)
+
+        
+
+        if (diamondcount-cost1 < 0){
+            upgrade1Elem.style.opacity = "0.5";
+        } else {
+            upgrade1Elem.style.opacity = "1";
+        }
+
+        if (diamondcount-cost2 < 0){
+            upgrade2Elem.style.opacity = "0.5";
+        } else {
+            upgrade2Elem.style.opacity = "1";
+        }
+
+        if (diamondcount-cost3 < 0){
+            upgrade3Elem.style.opacity = "0.5";
+        } else {
+            upgrade3Elem.style.opacity = "1";
+        }
+
+        
+       
+        
+           
+        
+        if (level1 == 10) {
+            document.getElementById("picklock")!.classList.add("fade-down");
+            setTimeout(() => {
+                document.getElementById("picklock")!.style.display = "none";
+            },  1900);
+        }
+        if (level2 == 10) {
+            document.getElementById("faclock")!.classList.add("fade-down");
+            setTimeout(() => {
+                document.getElementById("faclock")!.style.display = "none"
+            },  1900);
+        }
+
+       
+        
+    }
+   
+   
+    function simplifyNumber2(num :number){
+        if(num >= 1000000000000){
+            return (num/1000000000000).toFixed(2) + "T"
+        } else if(num >= 1000000000){
+            return (num/1000000000).toFixed(2) + "B"
+        } else if(num >= 1000000){
+            return (num/1000000).toFixed(2) + "M"
+        } else if(num >= 1000){
+            return (num/1000).toFixed(2) + "K"
+        } else if(num < 1000){
+            return (num).toFixed(2)
+        }
+    }
+    function simplifyNumber0(num :number){
+        if(num >= 1000000000000){
+            return (num/1000000000000).toFixed(0) + "T"
+        } else if(num >= 1000000000){
+            return (num/1000000000).toFixed(0) + "B"
+        } else if(num >= 1000000){
+            return (num/1000000).toFixed(0) + "M"
+        } else if(num >= 1000){
+            return (num/1000).toFixed(0) + "K"
+        } else if(num < 1000){
+            return (num).toFixed(0)
+        }
+    }
+    function simplifyNumberR(num :number){
+        return num.toFixed(0)
+    }
+    
+
+    
+
+    
+
+    function diamondincrement(event: MouseEvent){
+        diamondcount += increment;
+        
+
+        const x = event.offsetX + Math.random()*100-50
+        const y = event.offsetY + Math.random()*100-50
+
+        const div = document.createElement("div")
+        div.innerHTML = "+" + increment.toFixed(2)
+        div.style.top = y + "px";
+        div.style.left = x + "px";
+        gemImgContainer?.appendChild(div)
+        div.classList.add("fade-up");
+        setTimeout(() => {
+            gemImgContainer?.removeChild(div);
+        }, 1200);
+        updateElements()
+    }
+    
+    
+    setInterval(() => {
+        diamondcount += incrementS/10
+        updateElements()
+    }, 100);
+
+   
+</script>
+
+<style>
+    .gem-image-container{
+        position: relative;
+    }
+    #container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        height: 100vh;
+    }
+    
+    #left{
+        display: flex;
+        flex-direction: column;
+        margin: 200px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #counter{
+        font-size: 35px;
+        font-family: monospace;
+    }
+
+    #diamond{
+       height: 200px;
+       width: 200px;
+       user-select: none;
+    }
+
+    #diamond:hover{
+        opacity: 0.9;
+        cursor: pointer;
+    }
+    
+    #diamond:active{
+        opacity: 0.8;
+        scale: 1.02;
+    }
+
+    #countertext{
+        font-weight: 600;
+    }
+
+    #right{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        height: 600px;
+        padding: 20px 40px 20px 40px;
+        border-radius: 40px;
+        /* background-color: #222 */
+    }
+    
+    #stats{
+        color: white;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        padding: 20px;
+        margin: 10px;
+        border-radius: 20px;
+        background-color: rgb(44, 44, 44);
+    }
+    
+</style>
+
+<style is:global>
+    .fade-up{
+        animation: fade-up 1s;
+        animation-fill-mode: forwards;
+        color: white;
+        position: absolute;
+        font-size: 20px;
+        pointer-events: none;
+    }
+
+    .fade-down{
+        animation: fade-down 2s;
+    }
+    
+    @keyframes fade-down{
+        0% {
+            transform: translateX(-5px);
+            opacity: 1;
+        }
+        10% {
+            transform: translateX(4px);
+            opacity: 0.95;
+        }
+        20% {
+            transform: translateX(-4px);
+            opacity: 0.85;
+        }
+        30% {
+            transform: translateX(4px);
+            opacity: 0.8;
+        }
+        40% {
+            transform: translateX(-3px);
+            opacity: 0.75;
+        }
+        50%{
+            transform: translateX(3px);
+            opacity: 0.7;
+        }
+        60% {
+            transform: translateX(-3px);
+            opacity: 0.65;
+        }
+        70% {
+            transform: translateX(2px);
+            opacity: 0.50;
+        }
+        80% {
+            transform: translateX(-2px);
+            opacity: 0.35;
+            color: #777;
+        }
+        90% {
+            transform: translateX(1px);
+            opacity: 0.2;
+            scale: 1.05;
+            color: #888;
+        }
+        100% {
+            opacity: 0.0;
+            scale:1.1
+        }
+       
+    }
+
+    @keyframes fade-up {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        10% {
+            transform: translateY(-10px);
+            opacity: 0.95;
+        }
+        20% {
+            transform: translateY(-20px);
+            opacity: 0.85;
+        }
+        30% {
+            transform: translateY(-30px);
+            opacity: 0.8;
+        }
+        40% {
+            transform: translateY(-40px);
+            opacity: 0.75;
+        }
+        50%{
+            transform: translateY(-50px);
+            opacity: 0.7;
+        }
+        60% {
+            transform: translateY(-60px);
+            opacity: 0.65;
+        }
+        70% {
+            transform: translateY(-70px);
+            opacity: 0.55;
+        }
+        80% {
+            transform: translateY(-80px);
+            opacity: 0.45;
+        }
+        90% {
+            transform: translateY(-85px);
+            opacity: 0.4;
+        }
+        100% {
+            transform: translateY(-88px);
+            opacity: 0.0;
+        }
+       
+    }
+    </style>

@@ -1,0 +1,86 @@
+---
+import type { string } from 'astro:schema';
+
+interface Props {
+    gameName: string;
+    description: string;
+    pictureName: string;
+    gameLink: string;
+   
+}
+const {gameName, description, pictureName, gameLink} = Astro.props;
+---
+
+<section class="box">
+    <div class="img">
+        <img src={"/Assets/"+pictureName}>
+    </div>
+
+   
+    
+    <div class="desc">
+        <div class="name">
+            {gameName}
+        </div>
+
+        <div class="text">
+            {description}
+        </div>
+
+        <a href={gameLink} class="button is-medium mt-2">Play</a>
+    </div>
+
+</section>
+
+
+
+<style>
+.box{
+    height: 350px;
+    width: 350px;
+    background-color: #8ECC39;
+
+    display: grid;
+    grid-template: 47% 53%/100% ;
+    grid-template-areas: 
+    "img"
+    "desc";
+   
+    margin: 20px;
+    border-radius: 40px;
+
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+}
+
+.box:hover{
+    scale: 1.05;
+    transition: 0.3s;
+}
+
+.img{
+    grid-area: img;
+    display: flex;
+    justify-content: center;
+    object-fit: contain;
+}
+
+.desc{
+    grid-area: desc;
+    display: flex;
+    flex-direction: column;
+    
+}
+.name{
+    font-weight: 800;
+    color: #1b1b1b;
+    font-size: xx-large;
+    display: flex;
+    justify-content: center;
+}
+.text{
+    padding: 5px;
+    color: #1b1b1b;
+    font-size: medium;
+}
+</style>
