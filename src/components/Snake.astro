@@ -26,8 +26,8 @@
     const resetButton = document.querySelector('#snake-reset-button');
     const gameWidth = gameBoard.width;
     const gameHeight = gameBoard.height;
-    const boardLightBackground = "#A7D948"; // Soft Green  
-    const boardDarkBackground = "#8ECC39"; // Deeper Green  
+    const boardLightBackground = "#A7D948";   
+    const boardDarkBackground = "#8ECC39"; 
     const snakeBorder = "black";
     const snakeColor = "rgb(68, 68, 214)";
     const foodColor = "red";
@@ -45,16 +45,15 @@
     ];
     let tickSpeed = 150;
 
-    // Snake modal elements
     const snakeModal = document.querySelector('#snake-modal');
     const snakeModalBackground = document.querySelector('#snake-modal-background');
     const snakeModalScore = document.querySelector('#snake-final-score-text');
 
-    // ---- New input queue logic ----
-    let inputQueue: string[] = []; // array to store recent key inputs
-    const maxQueueSize = 2; // maximum 2 inputs saved at a time
+   
+    let inputQueue: string[] = [];  //skapar lista som backloggar inputs, om man råkade trycka mellan ticks dog man innan.
+    const maxQueueSize = 2; 
 
-    // Instead of updating the snake's direction immediately, we add the key to the queue
+   
     function handleKeyDown(event: KeyboardEvent) {
         event.preventDefault();
         if(inputQueue.length < maxQueueSize) {
@@ -62,11 +61,11 @@
         }
     }
 
-    // Process one queued input (if available) each tick.
+  
     function processQueuedInput() {
         if(inputQueue.length > 0) {
             const keyPress = inputQueue.shift();
-            if (!keyPress) return; // safeguard
+            if (!keyPress) return; 
 
             const leftKey = "ArrowLeft";
             const upKey = "ArrowUp";
@@ -98,7 +97,7 @@
             }
         }
     }
-    // ---- End new input queue logic ----
+   
 
     function gameStart(){
         running = true;
@@ -115,7 +114,7 @@
         if(running){
             paintBoard();
             paintFood();
-            processQueuedInput(); // process any queued key input before moving the snake
+            processQueuedInput(); 
             moveSnake();
             paintSnake();
             checkGameOver();
@@ -217,20 +216,20 @@
             {x: unitSize, y: 0},
             {x: 0, y: 0}
         ];
-        // Clear any pending inputs when restarting
+       
         inputQueue = [];
         if(!running){
             gameStart();
         }
     };
 
-    // Replace the original immediate-change handler with our queue-based input handler
+   
     window.addEventListener('keydown', handleKeyDown);
     resetButton?.addEventListener('click', resetGame);
 
     gameStart();
 
-    // Remove game over modal when clicking its background
+  
     snakeModalBackground?.addEventListener('click', () => {
         snakeModal?.classList.remove('is-active');
     });

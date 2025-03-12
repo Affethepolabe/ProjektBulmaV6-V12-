@@ -1,0 +1,137 @@
+<div class="body">
+    <div class="player1 m-6 p-6 is-size-3 has-text-white">Player X Wins: <br> <strong id="win1" class="is-size-1">0</strong></div>
+    <div class="container mt-6">
+        <div class="board" id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <div id="message" class="is-size-2 has-text-white">Spelare X är på tur</div>
+        <button id="reset" class="button is-danger">Starta om spelet</button>
+    </div>
+    <div class="player2 m-6 p-6 is-size-3 has-text-white">Player O Wins: <br><strong id="win2" class="is-size-1">0</strong></div>
+</div>
+
+
+<style>
+    .body{
+        display: flex;
+        flex-direction: row;
+        height: 550px;
+    }
+
+    .container{
+        text-align: center;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+    .board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+        margin: 20px;
+    }
+    .cell {
+        border: 2px solid #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        cursor: pointer;
+    }
+</style>
+
+
+<script>
+    const cells = document.querySelectorAll(".cell")
+    const message = document.getElementById("message")
+    const resetButton = document.getElementById("reset")
+    const playerWinX = document.getElementById("win1")
+    const playerWinO = document.getElementById("win2")
+
+    let currentPlayer = "X"
+    let playerWin1 = 0
+    let playerWin2 = 0
+
+
+
+
+
+    let boardState = Array(9).fill("")
+    let gameActive = true
+
+    const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+    ]
+
+    function Click(event: any) {
+        const cell = event.target
+        const index = cell.getAttribute("data-index")
+
+        if (boardState[index] !== "" || !gameActive) {
+            return
+        }
+
+        boardState[index] = currentPlayer
+        cell.textContent = currentPlayer
+
+        if (checkWin()) {
+            message!.textContent = `Spelare ${currentPlayer} vinner!`
+            gameActive = false
+            return
+        }
+
+        if (!boardState.includes("")) {
+            message!.textContent = "Oavgjort!"
+            gameActive = false
+            return
+        }
+
+        currentPlayer = currentPlayer === "X" ? "O" : "X"
+        message!.textContent = `Spelare ${currentPlayer} är på tur`
+    }
+
+    function checkWin() {
+        return winningCombinations.some(combination => {
+            return combination.every(index => boardState[index] === currentPlayer)
+        })
+    }
+
+    function resetGame() {
+        if(currentPlayer == "X"){
+            playerWin1 += 1
+            playerWinX!.textContent = playerWin1.toString()
+        } else{
+            playerWin2 += 1
+            playerWinO!.textContent = playerWin2.toString()
+        }
+
+
+
+        boardState = Array(9).fill("")
+        currentPlayer = "X"
+        gameActive = true
+        cells.forEach(cell => cell.textContent = "")
+        message!.textContent = "Spelare X är på tur"
+      
+    }
+
+    cells.forEach(cell => cell.addEventListener("click", Click))
+    resetButton!.addEventListener("click", resetGame)
+</script>
