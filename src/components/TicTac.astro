@@ -93,6 +93,13 @@
 
         if (checkWin()) {
             message!.textContent = `Spelare ${currentPlayer} vinner!`
+            if(currentPlayer == "X"){
+                playerWin1 += 1
+                playerWinX!.textContent = playerWin1.toString()
+            } else{
+                playerWin2 += 1
+                playerWinO!.textContent = playerWin2.toString()
+            }
             gameActive = false
             return
         }
@@ -114,16 +121,6 @@
     }
 
     function resetGame() {
-        if(currentPlayer == "X"){
-            playerWin1 += 1
-            playerWinX!.textContent = playerWin1.toString()
-        } else{
-            playerWin2 += 1
-            playerWinO!.textContent = playerWin2.toString()
-        }
-
-
-
         boardState = Array(9).fill("")
         currentPlayer = "X"
         gameActive = true
